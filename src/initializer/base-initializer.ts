@@ -13,7 +13,7 @@ export class BaseInitializer extends BaseResource {
   /**
    * Index to execute (sequence)
    */
-  public iIndex: number = 0;
+  static INTERNAL_INITIALIZER_INDEX: number = 0;
 
   /**
    * Register (pre) function

@@ -57,25 +57,22 @@ export class Application {
    * Run/exec initializer classes from application source path
    */
   public async runInitializers() {
-    const initializers = this.resources.only(BaseInitializer.INTERNAL_RESOURCE_TYPE);
+    const initializers = this.resources.only(BaseInitializer.INTERNAL_RESOURCE_TYPE) as typeof BaseInitializer[];
     const instances: BaseInitializer[] = [];
 
     // Instance initializers
-    for (const initializer of initializers) {
+    for (const initializer of initializers.sort((a, b) => a.INTERNAL_INITIALIZER_INDEX - b.INTERNAL_INITIALIZER_INDEX)) {
       const instance: BaseInitializer = new initializer() as BaseInitializer;
       instances.push(instance.setApplication(this));
     }
 
-    // Order initializers by iIndex property
-    const sortedInstances = instances.sort((a, b) => a.iIndex - b.iIndex);
-
     // Run "register" method
-    for (const instance of sortedInstances) {
+    for (const instance of instances) {
       await instance.register();
     }
 
     // Run "boot" method
-    for (const instance of sortedInstances) {
+    for (const instance of instances) {
       await instance.boot();
     }
   }
