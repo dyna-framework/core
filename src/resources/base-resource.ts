@@ -6,6 +6,11 @@ import { Application } from "../application";
 export class BaseResource {
 
   /**
+   * Resource type (internal use)
+   */
+  static INTERNAL_RESOURCE_TYPE = '@dyna:resource';
+
+  /**
    * Application instance
    */
   public app: Application|null = null;
