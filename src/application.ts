@@ -96,6 +96,10 @@ export class Application {
     }
   }
 
+  /**
+   * Get dependencies (only names) from package.json
+   * @returns dependencies
+   */
   public dependenciesFromPackage() {
     if (!this.pkgPath) {
       return [];
@@ -112,6 +116,10 @@ export class Application {
     return result;
   }
 
+  /**
+   * Get dependencies (only names) from ĺibraries
+   * @returns dependencies
+   */
   public dependenciesFromLibraries() {
     if (!this.librariesPath) {
       return [];
