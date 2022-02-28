@@ -2,9 +2,19 @@ import { BaseInitializer } from "./initializer/base-initializer";
 import { Resources } from "./resources/resources";
 
 /**
+ * Extra data application interface
+ */
+export interface ExtraApplication {}
+
+/**
  * Create an application instance
  */
 export class Application {
+
+  /**
+   * Extra application data
+   */
+  ex: ExtraApplication = {};
 
   /**
    * Resources container
@@ -50,6 +60,14 @@ export class Application {
     for (const instance of instances) {
       await instance.boot();
     }
+  }
+
+  /**
+   * Run/exec initializer classes from path
+   */
+  public async runInitializersFromDir(dir: string) {
+    const app = new Application(dir);
+    return await app.runInitializers();
   }
 
 }
