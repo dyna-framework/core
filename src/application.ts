@@ -66,13 +66,16 @@ export class Application {
       instances.push(instance.setApplication(this));
     }
 
+    // Order initializers by iIndex property
+    const sortedInstances = instances.sort((a, b) => a.iIndex - b.iIndex);
+
     // Run "register" method
-    for (const instance of instances) {
+    for (const instance of sortedInstances) {
       await instance.register();
     }
 
     // Run "boot" method
-    for (const instance of instances) {
+    for (const instance of sortedInstances) {
       await instance.boot();
     }
   }

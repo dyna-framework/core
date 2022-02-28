@@ -11,6 +11,11 @@ export class BaseInitializer extends BaseResource {
   static INTERNAL_RESOURCE_TYPE = '@dyna:initializer';
 
   /**
+   * Index to execute (sequence)
+   */
+  public iIndex: number = 0;
+
+  /**
    * Register (pre) function
    * @returns 
    */
