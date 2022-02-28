@@ -1,13 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
-
-/**
- * Resource
- */
-export interface Resource {
-  path: string;
-  object: any;
-}
+import { BaseResource } from './base-resource';
 
 /**
  * Resources into application
@@ -17,7 +10,7 @@ export class Resources {
   /**
    * Array container
    */
-  private container: Resource[] = [];
+  private container: typeof BaseResource[] = [];
 
   /**
    * Load resources (files) from directory
@@ -33,15 +26,11 @@ export class Resources {
 
       if (stat.isFile()) {
         const required = require(filePath);
-        const resources: Resource[] = [];
+        const resources: typeof BaseResource[] = [];
 
         for (const key in required) {
           const obj = required[key];
-
-          resources.push({
-            path: filePath,
-            object: obj,
-          });
+          resources.push(obj);
         }
         
         this.merge(resources);
@@ -65,7 +54,7 @@ export class Resources {
    * @returns resources loaded
    */
   only(type: string) {
-    return this.all().filter(e => e.object.INTERNAL_RESOURCE_TYPE === type);
+    return this.all().filter(e => e.INTERNAL_RESOURCE_TYPE === type);
   }
 
   /**
@@ -73,7 +62,7 @@ export class Resources {
    * @param resource the resource instance
    * @returns array container
    */
-  push(resource: Resource) {
+  push(resource: typeof BaseResource) {
     this.container.push(resource);
     return this.container;
   }
@@ -83,7 +72,7 @@ export class Resources {
    * @param arr Array of resources
    * @returns array container
    */
-  merge(arr: Resource[]) {
+  merge(arr: typeof BaseResource[]) {
     this.container = this.container.concat(arr);
     return this.container;
   }
