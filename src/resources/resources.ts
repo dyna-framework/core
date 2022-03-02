@@ -53,8 +53,8 @@ export class Resources {
    * @param type type resource
    * @returns resources loaded
    */
-  only(type: string) {
-    return this.all().filter(e => e.INTERNAL_RESOURCE_TYPE === type);
+  only<T>(type: string): T[] {
+    return this.all().filter(e => e.INTERNAL_RESOURCE_TYPE === type) as any;
   }
 
   /**
