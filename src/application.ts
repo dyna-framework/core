@@ -7,8 +7,8 @@ import * as path from 'path'
 /**
  * Extra data application interface
  */
-declare global {
-  export interface ExtraApplication {}
+export interface ExtraApplication {
+  [key: string]: any
 }
 
 /**
