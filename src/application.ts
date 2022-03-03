@@ -7,7 +7,9 @@ import * as path from 'path'
 /**
  * Extra data application interface
  */
-export interface ExtraApplication {}
+declare global {
+  export interface ExtraApplication {}
+}
 
 /**
  * Create an application instance
