@@ -1,16 +1,15 @@
-import * as fs from 'fs';
-import * as path from 'path';
-import { BaseResource } from './base-resource';
+import * as fs from 'fs'
+import * as path from 'path'
+import { BaseResource } from './base-resource'
 
 /**
  * Resources into application
  */
 export class Resources {
-
   /**
    * Array container
    */
-  private container: typeof BaseResource[] = [];
+  private container: typeof BaseResource[] = []
 
   /**
    * Load resources (files) from directory
@@ -18,24 +17,24 @@ export class Resources {
    * @param recursive ĺoad files recursively
    */
   loadFromDir(dir: string, recursive: boolean = false) {
-    const files = fs.readdirSync(dir);
+    const files = fs.readdirSync(dir)
 
     for (const file of files) {
-      const filePath = path.join(dir, file);
-      const stat = fs.statSync(filePath);
+      const filePath = path.join(dir, file)
+      const stat = fs.statSync(filePath)
 
       if (stat.isFile()) {
-        const required = require(filePath);
-        const resources: typeof BaseResource[] = [];
+        const required = require(filePath)
+        const resources: typeof BaseResource[] = []
 
         for (const key in required) {
-          const obj = required[key];
-          resources.push(obj);
+          const obj = required[key]
+          resources.push(obj)
         }
-        
-        this.merge(resources);
+
+        this.merge(resources)
       } else if (stat.isDirectory() && recursive) {
-        this.loadFromDir(filePath);
+        this.loadFromDir(filePath)
       }
     }
   }
@@ -45,7 +44,7 @@ export class Resources {
    * @returns resources loaded
    */
   all() {
-    return this.container;
+    return this.container
   }
 
   /**
@@ -54,7 +53,7 @@ export class Resources {
    * @returns resources loaded
    */
   only<T>(type: string): T[] {
-    return this.all().filter(e => e.INTERNAL_RESOURCE_TYPE === type) as any;
+    return this.all().filter((e) => e.isResourceType(type)) as any
   }
 
   /**
@@ -63,8 +62,8 @@ export class Resources {
    * @returns array container
    */
   push(resource: typeof BaseResource) {
-    this.container.push(resource);
-    return this.container;
+    this.container.push(resource)
+    return this.container
   }
 
   /**
@@ -73,8 +72,7 @@ export class Resources {
    * @returns array container
    */
   merge(arr: typeof BaseResource[]) {
-    this.container = this.container.concat(arr);
-    return this.container;
+    this.container = this.container.concat(arr)
+    return this.container
   }
-
 }

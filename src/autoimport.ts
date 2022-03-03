@@ -1,5 +1,5 @@
-import { BaseInitializer } from "./initializer/base-initializer";
+import { BaseInitializer } from './initializer/base-initializer'
 
 export interface Autoimport {
-  initializers: typeof BaseInitializer[];
+  initializers: typeof BaseInitializer[]
 }

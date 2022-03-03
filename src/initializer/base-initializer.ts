@@ -1,34 +1,29 @@
-import { BaseResource } from "../resources/base-resource";
+import { BaseResource } from '../resources/base-resource'
 
 /**
  * Base Initializer class
  */
 export class BaseInitializer extends BaseResource {
-
-  /**
-   * Resource type (internal use)
-   */
-  static INTERNAL_RESOURCE_TYPE = '@dyna:initializer';
-
-  /**
-   * Index to execute (sequence)
-   */
-  static INTERNAL_INITIALIZER_INDEX: number = 0;
-
   /**
    * Register (pre) function
-   * @returns 
+   * @returns
    */
   async register() {
-    return;
+    return
   }
 
   /**
    * Boot (post) function
-   * @returns 
+   * @returns
    */
   async boot() {
-    return;
+    return
   }
 
+  /**
+   * Index to execute (sequence)
+   */
+  static getInitializerIndex() {
+    return 0
+  }
 }
