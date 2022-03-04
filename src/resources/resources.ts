@@ -34,7 +34,7 @@ export class Resources {
 
         this.merge(resources)
       } else if (stat.isDirectory() && recursive) {
-        this.loadFromDir(filePath)
+        this.loadFromDir(filePath, recursive)
       }
     }
   }
